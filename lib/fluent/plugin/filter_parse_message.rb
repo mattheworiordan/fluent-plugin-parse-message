@@ -16,15 +16,21 @@ module Fluent
       new_es = MultiEventStream.new
       es.each do |time, record|
         begin
+          puts "About to parse: '#{record["message"]}'"
           @parser.parse(record["message"]) do |t, r|
+            puts "Parsed time #{t} - #{r}"
             if t
               time = t
             end
+            puts "Record #{record}"
             record.merge!(r)
+            puts "Record merged"
           end
 
           new_es.add(time, record)
+          puts "Add time & record"
         rescue => e
+          puts "Emitted error #{e} for '#{record["message"]}'"
           router.emit_error_event(tag, time, record, e)
         end
       end
