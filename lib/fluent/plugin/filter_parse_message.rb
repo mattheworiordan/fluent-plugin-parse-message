@@ -18,7 +18,7 @@ module Fluent
         begin
           puts "About to parse: '#{record["message"]}'"
           @parser.parse(record["message"]) do |t, r|
-            puts "Parsed time #{t} - #{r}"
+            puts "Parsed time #{t} - #{r.nil?} - #{r}"
             if t
               time = t
             end
