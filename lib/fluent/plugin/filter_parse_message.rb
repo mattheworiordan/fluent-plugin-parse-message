@@ -20,7 +20,7 @@ module Fluent
             if t
               time = t
             end
-            record.merge!(r)
+            record.merge!(r) if r
           end
 
           new_es.add(time, record)
