@@ -23,7 +23,7 @@ module Fluent
               time = t
             end
             puts "Record #{record}"
-            record.merge!(r)
+            record.merge!(r) if r
             puts "Record merged"
           end
 
